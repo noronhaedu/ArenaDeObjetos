@@ -6,8 +6,9 @@ public class Ladrao extends Pessoa {
     public Ladrao() {
     }
 
-    public Ladrao(String nome, String cabelo, String olho, String pele, boolean sexo, String planoDeFuga) {
-        super(nome, cabelo, olho, pele, sexo);
+    public Ladrao(int id, String nome, String cabelo, String olho, String pele, boolean sexo, int pontosDeVida,
+            String planoDeFuga) {
+        super(id, nome, cabelo, olho, pele, sexo, pontosDeVida);
         this.planoDeFuga = planoDeFuga;
     }
 
@@ -21,9 +22,10 @@ public class Ladrao extends Pessoa {
 
     @Override
     public String toString() {
-        return "Ladrao [planoDeFuga = " + getPlanoDeFuga() + ", nome = "
-                + getNome() + ", cabelo = " + getCabelo() + ", olho = " + getOlho() + ", pele = " + getPele()
-                + ", sexo = " + isSexo() + ", pontosDeVida = " + getPontosDeVida() + "]";
+        return "Ladrao [planoDeFuga=" + planoDeFuga + ", fugir()=" + fugir() + ", getId()=" + getId() + ", roubar()="
+                + roubar() + ", getNome()=" + getNome() + ", getCabelo()=" + getCabelo() + ", getOlho()=" + getOlho()
+                + ", getPele()=" + getPele() + ", isSexo()=" + isSexo() + ", getPontosDeVida()=" + getPontosDeVida()
+                + "]";
     }
 
     public String fugir() {

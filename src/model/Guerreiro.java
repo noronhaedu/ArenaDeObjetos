@@ -6,8 +6,9 @@ public class Guerreiro extends Pessoa {
     public Guerreiro() {
     }
 
-    public Guerreiro(String nome, String cabelo, String olho, String pele, boolean sexo, String armamento) {
-        super(nome, cabelo, olho, pele, sexo);
+    public Guerreiro(int id, String nome, String cabelo, String olho, String pele, boolean sexo, int pontosDeVida,
+            String armamento) {
+        super(id, nome, cabelo, olho, pele, sexo, pontosDeVida);
         this.armamento = armamento;
     }
 
@@ -21,9 +22,9 @@ public class Guerreiro extends Pessoa {
 
     @Override
     public String toString() {
-        return "Guerreiro [armamento = " + getArmamento() + ", nome = " + getNome()
-                + ", cabelo = " + getCabelo() + ", olho =" + getOlho() + ", pele = " + getPele()
-                + ", sexo = " + isSexo() + ", pontosDeVida = " + getPontosDeVida() + "]";
+        return "Guerreiro [armamento=" + armamento + ", getId()=" + getId() + ", getNome()=" + getNome()
+                + ", getCabelo()=" + getCabelo() + ", getOlho()=" + getOlho() + ", getPele()=" + getPele()
+                + ", isSexo()=" + isSexo() + ", getPontosDeVida()=" + getPontosDeVida() + "]";
     }
 
     public void atacar() {

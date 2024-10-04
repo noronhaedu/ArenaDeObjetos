@@ -6,4 +6,16 @@ public class ServicosFactory {
     public static VitimaServicos getVitimaServicos() {
         return vitimaS;
     }
+
+    private static GuerreiroServicos guerreiroS = new GuerreiroServicos();
+
+    public static GuerreiroServicos getGuerreiroServicos() {
+        return guerreiroS;
+    }
+
+    private static LadraoServicos ladraoS = new LadraoServicos();
+
+    public static LadraoServicos getLadraoServicos() {
+        return ladraoS;
+    }
 }

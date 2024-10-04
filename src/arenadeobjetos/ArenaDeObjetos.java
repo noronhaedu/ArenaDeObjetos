@@ -6,8 +6,11 @@ import java.util.Scanner;
 import model.Guerreiro;
 import model.Ladrao;
 import model.Pessoa;
+import servicos.GuerreiroServicos;
+import servicos.LadraoServicos;
 import servicos.ServicosFactory;
 import servicos.VitimaServicos;
+import view.Principal;
 
 public class ArenaDeObjetos {
     static Scanner ler = new Scanner(System.in);
@@ -31,18 +34,21 @@ public class ArenaDeObjetos {
     }
 
     public static void main(String[] args) {
-        System.out.println("-- Arena de Objetos --");
+        /*System.out.println("-- Arena de Objetos --");
         do {
             menuP();
             subMenuP(opMP);
-        } while (opMP != 0);
+        } while (opMP != 0);*/
+        Principal janelaPrincipal = new Principal();
+        janelaPrincipal.setVisible(true);
     }// fim main
 
     public static void menuP() {// menu principal
 
         String menu = "1 - Criar Personagem"
                 + "\n2 - Listar Personagens"
-                + "\n3 - Batalha"
+                + "\n3 - Teste Guerreiro"
+                + "\n4 - Teste Ladrão"
                 + "\n0 - Sair do Jogo"
                 + "\nDigite a opção: ";
 
@@ -64,34 +70,71 @@ public class ArenaDeObjetos {
             case 2:
                 System.out.print("Lista de Personagens: ");
                 System.out.println(guerreiros.toString() + "\n" + ladroes.toString() + "\n" + vitimas.toString());
-                System.out.println("--Lista bonita--\n");
-                for (Guerreiro g : guerreiros) {
-                    System.out.println(g.getNome());
-                    System.out.println("\tPontos de Vida: " + g.getPontosDeVida());
-                    System.out.println("\tArmamento: " + g.getArmamento());
-                    System.out.println("\tSexo: " + g.isSexo());
-                    System.out.println("\tCor da pele: " + g.getPele());
-                    System.out.println("\tCor dos olhos: " + g.getOlho());
-                    System.out.println("\tCor do cabelo: " + g.getCabelo());
+
+                // TESTE VÍTIMA
+                System.out.println("-- Vitimas do Banco de Dados --");
+                VitimaServicos vs = ServicosFactory.getVitimaServicos();
+                System.out.println(vs.listaVitimas().toString());
+
+                // teste de read
+                System.out.println("-- Teste de busca por nome --");
+                System.out.println(vs.buscaVitimaByNome("%Eduardo%").toString());
+
+                // teste de update
+                System.out.println("-- Teste de update: vítima Eduardo --");
+                Pessoa vUp = vs.buscaVitimaByNome("%Eduardo%");// busca a vítima
+                vUp.setCabelo("Preto");// atualizada a cor do cabelo
+                vs.atualizarVitima(vUp);
+                System.out.println("Vítima atualizada com sucesso!");
+                System.out.println(vs.buscaVitimaByNome("%Eduardo%").toString());
+
+                // teste de delete
+                System.out.println("-- Test de delete: vítima Ana --");
+                int id = vs.buscaVitimaByNome("%Ana%").getId();
+                // executa atualização mp banco
+                if (vs.deletarVitima(id)) {
+                    System.out.println("Vítima deletada!");
+                } else {
+                    System.out.println("Vítima não deletada!");
                 }
-                for (Ladrao l : ladroes) {
-                    System.out.println(l.getNome());
-                    System.out.println("\tPontos de Vida: " + l.getPontosDeVida());
-                    System.out.println("\tSexo: " + l.isSexo());
-                    System.out.println("\tCor da pele: " + l.getPele());
-                    System.out.println("\tCor dos olhos: " + l.getOlho());
-                    System.out.println("\tCor do cabelo: " + l.getCabelo());
-                }
-                for (Pessoa v : vitimas) {
-                    System.out.println(v.getNome());
-                    System.out.println("\tPontos de Vida: " + v.getPontosDeVida());
-                    System.out.println("\tSexo: " + v.isSexo());
-                    System.out.println("\tCor da pele: " + v.getPele());
-                    System.out.println("\tCor dos olhos: " + v.getOlho());
-                    System.out.println("\tCor do cabelo: " + v.getCabelo());
-                }
+                // FIM TESTE VÍTIMA
+
                 break;
             case 3:
+                // TESTE GUERREIRO
+                System.out.println("-- Guerreiros do Banco de Dados --");
+                GuerreiroServicos gs = ServicosFactory.getGuerreiroServicos();
+                System.out.println(gs.listaGuerreiros().toString());
+
+                System.out.println("-- Teste de busca por nome --");
+                System.out.println(gs.buscaGuerreiroByNome("%Mariana%").toString());
+
+                System.out.println("-- Teste de update: guerreira Mariana --");
+                Guerreiro gUp = gs.buscaGuerreiroByNome("%Mariana%");
+                gUp.setCabelo("Loiro");
+                gs.atualizarGuerreiro(gUp);
+                System.out.println("Guerreiro atualizado com sucesso!");
+                System.out.println(gs.buscaGuerreiroByNome("%Mariana%").toString());
+
+                System.out.println("-- Test de delete: guerreira --");
+                int idg = gs.buscaGuerreiroByNome("%Marilia%").getId();
+                if (gs.deletarGuerreiro(idg)) {
+                    System.out.println("Guerreiro deletado com sucesso!");
+                } else {
+                    System.out.println("Erro ao deletar guerreiro.");
+                }
+                // FIM TESTE GUERREIRO
+                break;
+            case 4:
+                // TESTE LADRÃO
+                System.out.println("-- Ladrões do Banco de Dados --");
+                LadraoServicos ls = ServicosFactory.getLadraoServicos();
+                System.out.println(ls.listaLadroes().toString());
+
+                System.out.println("-- Teste de busca por nome --");
+                System.out.println(ls.buscaLadraoByNome("%Mariana%").toString());
+
+                // FIM TESTE LADRÃO
                 break;
             case 0:
                 System.out.println("Arena de Objetos encerrada pelo usuário!");
@@ -99,7 +142,7 @@ public class ArenaDeObjetos {
             default:
                 System.out.println("Opção inválida, tente novamente!");
                 break;
-        }// fim s
+        }// fim switch-case
 
     }// fim void submenu
 
@@ -132,9 +175,10 @@ public class ArenaDeObjetos {
                 System.out.print("Informe o armamento: ");
                 g.setArmamento(ler.nextLine());
                 guerreiros.add(g);
+                GuerreiroServicos gs = ServicosFactory.getGuerreiroServicos();
+                gs.cadastrarGuerreiro(g);
                 break;
             case 2:
-                // System.out.println(guerreiros.toString());
                 System.out.println("Criar Ladrão!");
                 Ladrao l = new Ladrao();
                 System.out.print("Informe o nome do Ladrão: ");
@@ -158,7 +202,11 @@ public class ArenaDeObjetos {
                     sexo = true;// feminino
                 }
                 l.setSexo(sexo);
+                System.out.print("Informe o plano de fuga: ");
+                l.setPlanoDeFuga(ler.nextLine());
                 ladroes.add(l);
+                LadraoServicos ls = ServicosFactory.getLadraoServicos();
+                ls.cadastrarLadrao(l);
                 break;
             case 3:
                 System.out.println("Criar Vítima!");

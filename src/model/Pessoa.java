@@ -1,6 +1,7 @@
 package model;
 
 public class Pessoa {
+    private int id;
     private String nome;
     private String cabelo;
     private String olho;
@@ -10,15 +11,25 @@ public class Pessoa {
 
     public Pessoa() {
     }
-
-    public Pessoa(String nome, String cabelo, String olho, String pele, boolean sexo) {
+    
+    public Pessoa(int id, String nome, String cabelo, String olho, String pele, boolean sexo, int pontosDeVida) {
+        this.id = id;
         this.nome = nome;
         this.cabelo = cabelo;
         this.olho = olho;
         this.pele = pele;
         this.sexo = sexo;
+        this.pontosDeVida = pontosDeVida;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getNome() {
         return nome;
     }
